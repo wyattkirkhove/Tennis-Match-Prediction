@@ -50,6 +50,13 @@ The project follows a comprehensive data processing pipeline:
    - Creates ensemble predictions
    - Evaluates performance metrics
 
+> **Note:**
+> The file `data/matches_with_rolling_features.csv` is not included in the repository due to its size. You can regenerate this file by running:
+> ```
+> python featureCreation.py
+> ```
+> This script will process the raw data and create all rolling features required for modeling.
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -104,6 +111,17 @@ Each base model (XGBoost, LightGBM, Logistic Regression) is trained with three v
 ### Ensemble Approach
 A stacking ensemble combines all model variants using logistic regression as the meta-learner, typically achieving the best overall performance.
 
+### Example Results
+
+| Model (Best Variant)         | Train Accuracy | Test Accuracy | Train Brier | Test Brier | Train ROC AUC | Test ROC AUC |
+|------------------------------|:-------------:|:-------------:|:-----------:|:----------:|:-------------:|:------------:|
+| XGBoost (Isotonic)           | 0.7002        | 0.6717        | 0.1916      | 0.2074     | 0.7800        | 0.7367       |
+| Logistic Regression (Base)   | 0.6704        | 0.6730        | 0.2072      | 0.2077     | 0.7371        | 0.7365       |
+| LightGBM (Platt)             | 0.6857        | 0.6721        | 0.2002      | 0.2075     | 0.7575        | 0.7371       |
+| **Stacking Ensemble**        | 0.6791        | 0.6745        | 0.2013      | 0.2071     | 0.7526        | 0.7379       |
+
+*Other calibration variants performed similarly; see code for full results.*
+
 ## 📁 Project Structure
 
 ```
@@ -151,8 +169,8 @@ Tennis-Match-Prediction/
 ### Model Architecture
 
 1. **Preprocessing Pipeline**
-   - Numerical features: Median imputation + Standard scaling
-   - Categorical features: Mode imputation + One-hot encoding
+   - Numerical features: Median imputation + Standard scaling (using scikit-learn's SimpleImputer and StandardScaler)
+   - Categorical features: Mode imputation + One-hot encoding (using SimpleImputer and OneHotEncoder)
 
 2. **Base Models**
    - XGBoost: Gradient boosting with optimized hyperparameters
@@ -160,11 +178,11 @@ Tennis-Match-Prediction/
    - Logistic Regression: Linear model baseline
 
 3. **Calibration Methods**
-   - Platt Scaling: Sigmoid function calibration
-   - Isotonic Regression: Non-parametric calibration
+   - Platt Scaling: Sigmoid function calibration (CalibratedClassifierCV with method='sigmoid')
+   - Isotonic Regression: Non-parametric calibration (CalibratedClassifierCV with method='isotonic')
 
 4. **Ensemble**
-   - Stacking classifier with logistic regression meta-learner
+   - Stacking classifier with logistic regression meta-learner (scikit-learn's StackingClassifier)
    - 5-fold cross-validation for meta-learning
 
 ## 📊 Usage Examples
@@ -203,12 +221,20 @@ win_probability = probabilities[:, 1]
 
 The model identifies several important factors for tennis match prediction:
 
-1. **Recent Form**: Performance in the last 5-20 matches is highly predictive
-2. **Surface Specialization**: Players often perform differently on different surfaces
-3. **Head-to-Head History**: Historical matchups provide valuable insights
-4. **Serve-Return Balance**: The ratio of serve effectiveness to return performance
-5. **Momentum**: Recent performance trends vs. longer-term averages
+1. **Recent Form**: Rolling statistics over the last 5-100 matches capture player momentum
+2. **Surface Specialization**: Surface-specific Elo ratings and win rates highlight players' strengths and weaknesses on different surfaces
+3. **Head-to-Head History**: Head-to-head historical matchups can provide context for stylistic matchups and in some cases psychological advantages
+4. **Serve-Return Balance**: The ratio of serve effectiveness to return performance - This can also providecontext for stylistic matchups
+5. **Momentum**: Comparing short-term and long-term trends helps identify players on hot streaks or in slumps
 
+## 🚦 Next Steps / Future Work
+
+While I do not plan to actively maintain or extend this project, here are some logical next steps for anyone interested in building on this work:
+
+- **Update the Dataset:** Incorporate new match data (e.g., 2025 season and beyond) to keep predictions current.
+- **Automate Matchup Predictions:** Develop scripts to fetch upcoming matchups and generate predictions using the trained models.
+- **Feature Engineering Enhancements:** Explore new features or alternative data sources to further improve model performance.
+- **More robust elo calculations:** Vary K-factor for players that take long breaks/have injuries. To learn more about tennis elo, read [Jeff Sackmann's Introduction to Tennis Elo](https://www.tennisabstract.com/blog/2019/12/03/an-introduction-to-tennis-elo/)
 
 ## 📄 License
 

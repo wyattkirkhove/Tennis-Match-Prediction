@@ -200,11 +200,15 @@ def train_and_evaluate_models(X_train, X_test, y_train, y_test, features, origin
         cv=5,
         n_jobs=-1
     )
-    stacking_clf.fit(X_train, y_train)
-    stacking_pred_proba = stacking_clf.predict_proba(X_test)[:, 1]
+    
+    X_train_np = X_train.to_numpy(copy=True)
+    X_test_np = X_test.to_numpy(copy=True)
+    y_train_np = y_train.to_numpy(copy=True)
+    stacking_clf.fit(X_train_np, y_train_np)
+    stacking_pred_proba = stacking_clf.predict_proba(X_test_np)[:, 1]
     test_predictions['Stacking'] = stacking_pred_proba
     # Stacking ensemble train/test comparison
-    stacking_pred_proba_train = stacking_clf.predict_proba(X_train)[:, 1]
+    stacking_pred_proba_train = stacking_clf.predict_proba(X_train_np)[:, 1]
     results['Stacking'] = {
         'train': {
             'accuracy': accuracy_score(y_train, (stacking_pred_proba_train > 0.5).astype(int)),
