@@ -1,0 +1,28 @@
+{
+    "XGBoost": {
+        "colsample_bytree": 0.7088528997538541,
+        "gamma": 0.6476901205413623,
+        "learning_rate": 0.010156113098594747,
+        "max_depth": 7,
+        "min_child_weight": 1,
+        "n_estimators": 358,
+        "subsample": 0.6027808522124762
+    },
+    "Logistic Regression": {
+        "C": 60.112501174320876,
+        "max_iter": 1000,
+        "penalty": "l2",
+        "solver": "liblinear"
+    },
+    "LightGBM": {
+        "colsample_bytree": 0.7173952698872152,
+        "learning_rate": 0.014223946814525337,
+        "max_depth": 5,
+        "min_child_samples": 90,
+        "n_estimators": 491,
+        "num_leaves": 52,
+        "reg_alpha": 0.6059599747810114,
+        "reg_lambda": 0.926300878513349,
+        "subsample": 0.8604308102007778
+    }
+}
