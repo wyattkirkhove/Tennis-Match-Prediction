@@ -1,0 +1,4 @@
+# Ignore large intermediate data files
+data/matches_with_rolling_features.csv
+data/mens_matches_sorted_elo.csv
+data/matches_with_rolling_features.csv
