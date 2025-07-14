@@ -83,12 +83,11 @@ venv\Scripts\activate
 
 # or on macOS/Linux
 source venv/bin/activate
-
+```
 3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
-
 4. **Prepare the data**
    ```bash
    # Add Elo ratings to match data
