@@ -2,7 +2,7 @@
 
 A machine learning approach to predict tennis match outcomes using comprehensive player statistics, historical performance data, and advanced feature engineering.
 
-## 🎾 Project Overview
+##  Project Overview
 
 This project implements a sophisticated tennis match prediction system that analyzes player performance patterns, historical head-to-head records, and various tennis-specific metrics to predict match outcomes. The system uses multiple machine learning models with probability calibration and ensemble methods to achieve robust predictions.
 
