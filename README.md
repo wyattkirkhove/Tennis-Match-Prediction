@@ -254,8 +254,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- ATP Tour for providing match data
-- Tennis analytics community for insights and methodologies
 - Open-source machine learning libraries (scikit-learn, XGBoost, LightGBM)
 - This project uses publicly available tennis match data from [Jeff Sackmann's Tennis Abstract](https://github.com/JeffSackmann/tennis_atp), a well-maintained and respected resource in tennis analytics.
 
