@@ -67,16 +67,29 @@ The project follows a comprehensive data processing pipeline:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/wyattkirkhove/Tennis-Match-Prediction)
    cd Tennis-Match-Prediction
    ```
+2. **(Recommended) Create a Virtual Environment**
 
-2. **Install dependencies**
+Before installing dependencies, create and activate a virtual environment:
+
+```bash
+# Create venv
+python -m venv venv
+
+# Activate it (Windows)
+venv\Scripts\activate
+
+# or on macOS/Linux
+source venv/bin/activate
+
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Prepare the data**
+4. **Prepare the data**
    ```bash
    # Add Elo ratings to match data
    python addElo.py
@@ -88,7 +101,7 @@ The project follows a comprehensive data processing pipeline:
    python finalFeatures.py
    ```
 
-4. **Train the models**
+5. **Train the models**
    ```bash
    python train_models.py
    ```
