@@ -1,12 +1,12 @@
-# 🎾 Tennis Match Prediction
+# Tennis Match Prediction
 
-A machine learning approach to predict tennis match outcomes using comprehensive player statistics, historical performance data, and advanced feature engineering.
+A machine learning approach to predict tennis match outcomes using player statistics, historical performance data, and advanced feature engineering.
 
 ##  Project Overview
 
 This project implements a sophisticated tennis match prediction system that analyzes player performance patterns, historical head-to-head records, and various tennis-specific metrics to predict match outcomes. The system uses multiple machine learning models with probability calibration and ensemble methods to achieve robust predictions.
 
-## 🏆 Key Features
+## Key Features
 
 ### **Comprehensive Feature Engineering**
 - **Player Statistics**: Rankings, age, height, Elo ratings (overall and surface-specific)
@@ -24,7 +24,18 @@ This project implements a sophisticated tennis match prediction system that anal
 - **Hyperparameter Optimization**: Pre-tuned parameters for optimal performance
 - **Model Persistence**: Saved models for quick inference
 
-## 📊 Data Pipeline
+### Example Results
+
+| Model (Best Variant)         | Train Accuracy | Test Accuracy | Train Brier | Test Brier | Train ROC AUC | Test ROC AUC |
+|------------------------------|:-------------:|:-------------:|:-----------:|:----------:|:-------------:|:------------:|
+| XGBoost (Isotonic)           | 0.7002        | 0.6717        | 0.1916      | 0.2074     | 0.7800        | 0.7367       |
+| Logistic Regression (Base)   | 0.6704        | 0.6730        | 0.2072      | 0.2077     | 0.7371        | 0.7365       |
+| LightGBM (Platt)             | 0.6857        | 0.6721        | 0.2002      | 0.2075     | 0.7575        | 0.7371       |
+| **Stacking Ensemble**        | 0.6791        | 0.6745        | 0.2013      | 0.2071     | 0.7526        | 0.7379       |
+
+*Other calibration variants performed similarly; see code for full results.*
+
+## Data Pipeline
 
 The project follows a comprehensive data processing pipeline:
 
@@ -57,7 +68,7 @@ The project follows a comprehensive data processing pipeline:
 > ```
 > This script will process the raw data and create all rolling features required for modeling.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Python 3.8+
@@ -106,7 +117,7 @@ source venv/bin/activate
    ```
    To retrain all models from scratch, clear the contents of the `models/` directory (except `best_hyperparameters.json`) before running `train_models.py`.
 
-## 📈 Model Performance
+## Model Performance
 
 The system evaluates models using multiple metrics:
 
@@ -123,18 +134,7 @@ Each base model (XGBoost, LightGBM, Logistic Regression) is trained with three v
 ### Ensemble Approach
 A stacking ensemble combines all model variants using logistic regression as the meta-learner, typically achieving the best overall performance.
 
-### Example Results
-
-| Model (Best Variant)         | Train Accuracy | Test Accuracy | Train Brier | Test Brier | Train ROC AUC | Test ROC AUC |
-|------------------------------|:-------------:|:-------------:|:-----------:|:----------:|:-------------:|:------------:|
-| XGBoost (Isotonic)           | 0.7002        | 0.6717        | 0.1916      | 0.2074     | 0.7800        | 0.7367       |
-| Logistic Regression (Base)   | 0.6704        | 0.6730        | 0.2072      | 0.2077     | 0.7371        | 0.7365       |
-| LightGBM (Platt)             | 0.6857        | 0.6721        | 0.2002      | 0.2075     | 0.7575        | 0.7371       |
-| **Stacking Ensemble**        | 0.6791        | 0.6745        | 0.2013      | 0.2071     | 0.7526        | 0.7379       |
-
-*Other calibration variants performed similarly; see code for full results.*
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 Tennis-Match-Prediction/
@@ -197,7 +197,7 @@ Tennis-Match-Prediction/
    - Stacking classifier with logistic regression meta-learner (scikit-learn's StackingClassifier)
    - 5-fold cross-validation for meta-learning
 
-## 📊 Usage Examples
+## Usage Examples
 
 ### Training Models
 ```python
@@ -229,7 +229,7 @@ probabilities = stacking_model.predict_proba(X_processed)
 win_probability = probabilities[:, 1]
 ```
 
-## 🎯 Key Insights
+## Key Insights
 
 The model identifies several important factors for tennis match prediction:
 
@@ -239,7 +239,7 @@ The model identifies several important factors for tennis match prediction:
 4. **Serve-Return Balance**: The ratio of serve effectiveness to return performance - This can also providecontext for stylistic matchups
 5. **Momentum**: Comparing short-term and long-term trends helps identify players on hot streaks or in slumps
 
-## 🚦 Next Steps / Future Work
+## Next Steps / Future Work
 
 While I do not plan to actively maintain or extend this project, here are some logical next steps for anyone interested in building on this work:
 
@@ -248,11 +248,11 @@ While I do not plan to actively maintain or extend this project, here are some l
 - **Feature Engineering Enhancements:** Explore new features or alternative data sources to further improve model performance.
 - **More robust elo calculations:** Vary K-factor for players that take long breaks/have injuries. To learn more about tennis elo, read [Jeff Sackmann's Introduction to Tennis Elo](https://www.tennisabstract.com/blog/2019/12/03/an-introduction-to-tennis-elo/)
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Open-source machine learning libraries (scikit-learn, XGBoost, LightGBM)
 - This project uses publicly available tennis match data from [Jeff Sackmann's Tennis Abstract](https://github.com/JeffSackmann/tennis_atp), a well-maintained and respected resource in tennis analytics.
